@@ -12,7 +12,7 @@ An interactive character that watches the cursor and blinks when you poke it.
 npm i page-mascot
 ```
 
-## Use one that is drawn
+## Use existing mascots
 
 Pick a character on the [demo page](https://koboyo.com/page-mascot) and download its two
 sheets into `public/mascots`, then point the component at them:
