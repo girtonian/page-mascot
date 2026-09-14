@@ -22,8 +22,10 @@
   "files": ["dist", "README.md", "LICENSE"],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.build.json && cp src/mascot.tsx skills/page-mascot/mascot.tsx",
-    "build:site": "npm run typecheck && vite build",
+    "sync:skill": "cp src/mascot.tsx skills/page-mascot/mascot.tsx",
+    "check:skill": "diff -q src/mascot.tsx skills/page-mascot/mascot.tsx",
+    "build": "tsc -p tsconfig.build.json && npm run sync:skill",
+    "build:site": "npm run check:skill && npm run typecheck && vite build",
     "typecheck": "tsc -p tsconfig.json",
     "lint": "oxlint",
     "preview": "vite preview",
