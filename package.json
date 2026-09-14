@@ -1,7 +1,7 @@
 {
   "name": "page-mascot",
   "version": "0.1.0",
-  "description": "A React character that watches the cursor and blinks when you poke it.",
+  "description": "An interactive character that watches the cursor and blinks when you poke it.",
   "license": "MIT",
   "author": "Kamran Ahmed",
   "homepage": "https://koboyo.com/page-mascot",

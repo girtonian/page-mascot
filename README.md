@@ -2,7 +2,7 @@
 
 # page-mascot
 
-A React character that watches the cursor and blinks when you poke it.
+An interactive character that watches the cursor and blinks when you poke it.
 
 **[See the fifty-two &rarr;](https://koboyo.com/page-mascot)**
 
@@ -61,8 +61,8 @@ API:
 export OPENAI_API_KEY=sk-...
 ```
 
-With neither, `skills/page-mascot/reference/prompts.md` has the prompts to draw the sheets
-by hand in any chat UI.
+Or take the [prompts](skills/page-mascot/reference/prompts.md) and use them in any chat
+UI.
 
 ## Props
 
@@ -85,7 +85,7 @@ Each character is two 3×3 sprite sheets: nine head directions, and nine express
 
 The pointer's angle picks a cell on the directions sheet, with a dead zone so the head
 settles when the cursor is close. A click shows a cell from the reactions sheet for half a
-second. One `background-position` and no animation library.
+second.
 
 The same character can be drawn in six styles: colour, ink, sketch, riso, paper and pixel.
 Only the rendering changes, so the alignment holds.

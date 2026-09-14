@@ -56,8 +56,7 @@ export function Hero(props: HeroProps) {
         </a>
       </div>
       <p className="mt-3 text-sm text-ink/40">
-        Pick one from the grid below and it tells you how to put it on your page. Or an
-        agent skill draws a new one, builds it, and adds the component.
+        Pick one below, or have an agent skill draw a new one.
       </p>
     </header>
   )
