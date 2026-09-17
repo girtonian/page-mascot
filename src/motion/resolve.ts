@@ -13,8 +13,13 @@ function asMotionPartial(profile: MotionProfile): MotionProfile {
   return rest
 }
 
+function isDevelopment() {
+  const env = (globalThis as { process?: { env?: { NODE_ENV?: string } } }).process?.env
+  return env?.NODE_ENV !== 'production'
+}
+
 function warnUnknownPersonality(name: string) {
-  if (process.env.NODE_ENV === 'production' || warnedPersonalities.has(name)) {
+  if (!isDevelopment() || warnedPersonalities.has(name)) {
     return
   }
   warnedPersonalities.add(name)
