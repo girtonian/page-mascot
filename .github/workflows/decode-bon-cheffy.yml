@@ -3,18 +3,27 @@ on:
   push:
     branches: [feat/bon-cheffy-character]
     paths:
-      - 'characters/bon-cheffy/*.png.b64'
+      - 'characters/bon-cheffy/**'
 permissions:
   contents: write
 jobs:
   decode:
     runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'b64-transport')
     steps:
       - uses: actions/checkout@v4
       - name: Decode base64 sheets to PNG
         run: |
           set -euo pipefail
           d=characters/bon-cheffy
+          if ls "$d"/directions.png.b64.part* >/dev/null 2>&1; then
+            cat "$d"/directions.png.b64.part* > "$d/directions.png.b64"
+            rm -f "$d"/directions.png.b64.part*
+          fi
+          if ls "$d"/reactions.png.b64.part* >/dev/null 2>&1; then
+            cat "$d"/reactions.png.b64.part* > "$d/reactions.png.b64"
+            rm -f "$d"/reactions.png.b64.part*
+          fi
           test -f "$d/directions.png.b64"
           test -f "$d/reactions.png.b64"
           base64 -d "$d/directions.png.b64" > "$d/directions.png"
@@ -27,7 +36,7 @@ jobs:
               print(name, "ok", p.stat().st_size)
           PY
           rm -f "$d/directions.png.b64" "$d/reactions.png.b64"
-          rm -f "$d/.binary-test.png" "$d/.tiny-test.png"
+          rm -f "$d/.binary-test.png" "$d/.tiny-test.png" "$d/.gitkeep"
           rm -f .github/workflows/decode-bon-cheffy.yml
       - name: Commit PNGs
         run: |
