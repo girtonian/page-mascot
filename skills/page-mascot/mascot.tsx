@@ -139,6 +139,9 @@ export function Mascot(props: MascotProps) {
     }
   }, [])
 
+  const idleReactionsKey = config.idle.reactions.join(',')
+  const allowedReactionsKey = config.reactions.allowed.join(',')
+
   useEffect(() => {
     if (!config.idle.enabled) {
       scheduleIdleRef.current = null
@@ -149,9 +152,13 @@ export function Mascot(props: MascotProps) {
       return
     }
 
-    const { minIntervalMs, maxIntervalMs, chance, reactions: idleReactions, holdMs, onlyWhenCentered } =
-      config.idle
-    const allowed = config.reactions.allowed
+    const minIntervalMs = config.idle.minIntervalMs
+    const maxIntervalMs = config.idle.maxIntervalMs
+    const chance = config.idle.chance
+    const holdMs = config.idle.holdMs
+    const onlyWhenCentered = config.idle.onlyWhenCentered
+    const idleReactions = idleReactionsKey.split(',').filter(Boolean)
+    const allowed = allowedReactionsKey.split(',').filter(Boolean) as ReactionName[]
 
     const later = (ms: number, fn: () => void) => {
       timersRef.current.push(window.setTimeout(fn, ms))
@@ -190,8 +197,20 @@ export function Mascot(props: MascotProps) {
       scheduleIdleRef.current = null
       timersRef.current.forEach(window.clearTimeout)
       timersRef.current = []
+      idleHoldRef.current += 1
+      setReaction(null)
     }
-  }, [config.idle, config.reactions.allowed])
+  }, [
+    config.idle.enabled,
+    config.idle.minIntervalMs,
+    config.idle.maxIntervalMs,
+    config.idle.chance,
+    config.idle.holdMs,
+    config.idle.onlyWhenCentered,
+    config.idle.respectReducedMotion,
+    idleReactionsKey,
+    allowedReactionsKey,
+  ])
 
   const boop = () => {
     timersRef.current.forEach(window.clearTimeout)
