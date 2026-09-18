@@ -30,6 +30,7 @@ export const MASCOTS = [
   'builder',
   'cap',
   'chef',
+  'bon-cheffy',
   'glasses',
   'grandpa',
   'granny',
@@ -60,7 +61,7 @@ export const MASCOTS = [
 
 export type MascotName = (typeof MASCOTS)[number]
 
-export const MASCOT: MascotName = 'fox'
+export const MASCOT: MascotName = 'bon-cheffy'
 
 export const STYLES = [
   { name: 'colour', character: 'fox', note: 'the default' },

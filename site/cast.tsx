@@ -1,4 +1,5 @@
 import { Mascot } from '../src/mascot'
+import type { PersonalityId } from '../src/motion/profiles'
 import { MASCOTS, sheets } from './mascots'
 import { UseButton } from './use-button'
 
@@ -6,13 +7,14 @@ const CELL = 120
 
 type CastProps = {
   picked: string
+  personality: PersonalityId
   onPick: (character: string) => void
   onUse: (character: string) => void
   onMakeYourOwn: () => void
 }
 
 export function Cast(props: CastProps) {
-  const { picked, onPick, onUse, onMakeYourOwn } = props
+  const { picked, personality, onPick, onUse, onMakeYourOwn } = props
 
   return (
     <section id="characters" className="scroll-mt-16 mt-28 sm:mt-36">
@@ -36,7 +38,12 @@ export function Cast(props: CastProps) {
             {/* Capture phase, so picking does not swallow the click the mascot needs for
                 its own reaction. */}
             <span onClickCapture={() => onPick(character)}>
-              <Mascot {...sheets(character)} label={character} size={CELL - 16} />
+              <Mascot
+                {...sheets(character)}
+                label={character}
+                size={CELL - 16}
+                personality={character === picked ? personality : undefined}
+              />
             </span>
 
             <UseButton name={character} onClick={() => onUse(character)} />
