@@ -1,4 +1,5 @@
 import { Mascot } from '../src/mascot'
+import { personalityIds, type PersonalityId } from '../src/motion/profiles'
 import { MASCOTS, sheets } from './mascots'
 
 const REPO = 'https://github.com/nilbuild/page-mascot'
@@ -13,17 +14,51 @@ function GitHubMark() {
 
 type HeroProps = {
   character: string
+  personality: PersonalityId
+  onPersonality: (id: PersonalityId) => void
   onMakeYourOwn: () => void
 }
 
 export function Hero(props: HeroProps) {
-  const { character, onMakeYourOwn } = props
+  const { character, personality, onPersonality, onMakeYourOwn } = props
 
   return (
     <header className="flex flex-col items-start">
-      <Mascot key={character} {...sheets(character)} label={character} size={200} className="-ml-4" />
+      <Mascot
+        key={character}
+        {...sheets(character)}
+        label={character}
+        size={200}
+        className="-ml-4"
+        personality={personality}
+      />
 
-      <h1 className="mt-2 font-mono text-5xl font-bold tracking-tighter sm:text-6xl">
+      <div className="mt-5">
+        <p className="font-mono text-[11px] tracking-wide text-ink/40">personality</p>
+        <div role="group" aria-label="Personality" className="mt-2 flex flex-wrap gap-2">
+          {personalityIds.map((id) => {
+            const selected = id === personality
+
+            return (
+              <button
+                key={id}
+                type="button"
+                aria-pressed={selected}
+                onClick={() => onPersonality(id)}
+                className={
+                  selected
+                    ? 'rounded-xl bg-ink px-3 py-1.5 text-sm font-medium text-paper'
+                    : 'rounded-xl border border-ink/15 px-3 py-1.5 text-sm font-medium text-ink/75 transition-colors hover:border-ink/40 hover:text-ink'
+                }
+              >
+                {id}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      <h1 className="mt-8 font-mono text-5xl font-bold tracking-tighter sm:text-6xl">
         /page-mascot
       </h1>
       <p className="mt-4 max-w-[42ch] text-xl leading-snug font-medium text-ink/60">

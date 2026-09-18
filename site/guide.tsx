@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
+import type { PersonalityId } from '../src/motion/profiles'
 import { highlight, type Lang } from './highlight'
 
 export type GuideKind = 'use' | 'make'
@@ -12,6 +13,7 @@ type Step = {
 type GuideProps = {
   kind: GuideKind | null
   character: string
+  personality: PersonalityId
   onClose: () => void
 }
 
@@ -56,7 +58,7 @@ function Snippet(props: { children: string; lang?: Lang }) {
   )
 }
 
-function stepsToUse(character: string): Step[] {
+function stepsToUse(character: string, personality: PersonalityId): Step[] {
   return [
     {
       title: 'Install the component',
@@ -94,6 +96,7 @@ function stepsToUse(character: string): Step[] {
 <Mascot
   directions="/mascots/${character}-directions.webp"
   reactions="/mascots/${character}-reactions.webp"
+  personality="${personality}"
 />`}</Snippet>
           <p className="mt-3 text-sm text-ink/40">
             Any two paths work. Put the files wherever you like, or import them and pass
@@ -156,8 +159,8 @@ const MAKE_STEPS: Step[] = [
 ]
 
 export function Guide(props: GuideProps) {
-  const { kind, character, onClose } = props
-  const steps = stepsToUse(character)
+  const { kind, character, personality, onClose } = props
+  const steps = stepsToUse(character, personality)
 
   useEffect(() => {
     if (!kind) {

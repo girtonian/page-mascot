@@ -4,7 +4,9 @@
 
 An interactive character that watches the cursor and blinks when you poke it.
 
-**[See the fifty-two &rarr;](https://koboyo.com/page-mascot)**
+**[See the fifty-three &rarr;](https://koboyo.com/page-mascot)**
+
+The demo opens on Bon Cheffy with `personality="bouncy"`.
 
 ## Install
 
